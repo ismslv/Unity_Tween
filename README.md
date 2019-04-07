@@ -1,6 +1,6 @@
 # Unity_Tween
 
-Version 0.2
+Version 0.21
 
 Simple tweening system with easing.
 
@@ -10,6 +10,7 @@ public enum TaskType {
     moveLocal,
     moveArc,
     moveArcLocal,
+    moveUI,
     rotate,
     rotateLocal,
     scale,

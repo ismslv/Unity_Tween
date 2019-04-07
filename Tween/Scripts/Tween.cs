@@ -1,5 +1,5 @@
 ﻿/* TWEEN SYSTEM
- * V0.2
+ * V0.21
  * FMLHT, 10.2018
  */
 
@@ -93,11 +93,23 @@ public class Tween : MonoBehaviour {
     public Task MoveArcToLocal(Transform obj, Vector3 posTo, float arcHeight, float time, Easing.Ease easing, System.Action callback = null)
     {
         Task task = AddTask(time, easing);
-        task.type = TaskType.moveArcLocal;
+        task.type = TaskType.moveUI;
         task.data["transform"] = obj;
         task.data["from"] = obj.localPosition;
         task.data["to"] = posTo;
         task.data["arcHeight"] = arcHeight;
+        task.callback = callback;
+        tasks.Add(task);
+        return task;
+    }
+
+    public Task MoveUITo(RectTransform obj, Vector2 posTo, float time, Easing.Ease easing, System.Action callback = null)
+    {
+        Task task = AddTask(time, easing);
+        task.type = TaskType.moveUI;
+        task.data["transform"] = obj;
+        task.data["from"] = obj.anchoredPosition;
+        task.data["to"] = posTo;
         task.callback = callback;
         tasks.Add(task);
         return task;
@@ -229,6 +241,13 @@ public class Tween : MonoBehaviour {
                     task.t,
                     task.easing);
                 break;
+            case TaskType.moveUI:
+                ((RectTransform)task.data["transform"]).anchoredPosition = UpdateMoveUI(
+                    (Vector2)task.data["from"],
+                    (Vector2)task.data["to"],
+                    task.t,
+                    task.easing);
+                break;
             case TaskType.rotate:
                 ((Transform)task.data["transform"]).rotation = UpdateRotate(
                     (Quaternion)task.data["from"],
@@ -291,6 +310,11 @@ public class Tween : MonoBehaviour {
         return pos;
     }
 
+    Vector3 UpdateMoveUI(Vector2 posFrom, Vector2 posTo, float t, Easing.Ease easing)
+    {
+        return Vector2.Lerp(posFrom, posTo, Easing.EaseResult(easing, 0f, 1f, t));
+    }
+
     Vector3 UpdateScale(Vector3 scaleFrom, Vector3 scaleTo, float t, Easing.Ease easing)
     {
         return Vector3.Lerp(scaleFrom, scaleTo, Easing.EaseResult(easing, 0f, 1f, t));
@@ -317,7 +341,8 @@ public class Tween : MonoBehaviour {
         colorMaterial,
         colorSprite,
         actionFloat,
-        timerSimple
+        timerSimple,
+        moveUI
     };
 
     [System.Serializable]
