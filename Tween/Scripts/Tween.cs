@@ -1,5 +1,5 @@
 ﻿/* TWEEN SYSTEM
- * V0.21
+ * V0.22
  * FMLHT, 10.2018
  */
 
@@ -53,145 +53,145 @@ public class Tween : MonoBehaviour {
         };
     }
 
-    public Task MoveTo(Transform obj, Vector3 posTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task MoveTo(Transform obj, Vector3 posTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.move;
         task.data["transform"] = obj;
         task.data["from"] = obj.position;
         task.data["to"] = posTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task MoveToLocal(Transform obj, Vector3 posTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task MoveToLocal(Transform obj, Vector3 posTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.moveLocal;
         task.data["transform"] = obj;
         task.data["from"] = obj.localPosition;
         task.data["to"] = posTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task MoveArcTo(Transform obj, Vector3 posTo, float arcHeight, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task MoveArcTo(Transform obj, Vector3 posTo, float arcHeight, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.moveArc;
         task.data["transform"] = obj;
         task.data["from"] = obj.position;
         task.data["to"] = posTo;
         task.data["arcHeight"] = arcHeight;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task MoveArcToLocal(Transform obj, Vector3 posTo, float arcHeight, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task MoveArcToLocal(Transform obj, Vector3 posTo, float arcHeight, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.moveUI;
         task.data["transform"] = obj;
         task.data["from"] = obj.localPosition;
         task.data["to"] = posTo;
         task.data["arcHeight"] = arcHeight;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task MoveUITo(RectTransform obj, Vector2 posTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task MoveUITo(RectTransform obj, Vector2 posTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.moveUI;
         task.data["transform"] = obj;
         task.data["from"] = obj.anchoredPosition;
         task.data["to"] = posTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task ScaleTo(Transform obj, Vector3 scaleTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task ScaleTo(Transform obj, Vector3 scaleTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.scale;
         task.data["transform"] = obj;
         task.data["from"] = obj.localScale;
         task.data["to"] = scaleTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task RotateTo(Transform obj, Quaternion rotTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task RotateTo(Transform obj, Quaternion rotTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.rotate;
         task.data["transform"] = obj;
         task.data["from"] = obj.rotation;
         task.data["to"] = rotTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task RotateToLocal(Transform obj, Quaternion rotTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task RotateToLocal(Transform obj, Quaternion rotTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.rotateLocal;
         task.data["transform"] = obj;
         task.data["from"] = obj.localRotation;
         task.data["to"] = rotTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task ColorToMaterial(Material material, Color colTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task ColorToMaterial(Material material, Color colTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.colorMaterial;
         task.data["material"] = material;
         task.data["from"] = material.color;
         task.data["to"] = colTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task ColorToSprite(SpriteRenderer sprite, Color colTo, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task ColorToSprite(SpriteRenderer sprite, Color colTo, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.colorSprite;
         task.data["sprite"] = sprite;
         task.data["from"] = sprite.color;
         task.data["to"] = colTo;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task ActionFloat(System.Action<float> action, float from, float to, float time, Easing.Ease easing, System.Action callback = null)
+    public static Task ActionFloat(System.Action<float> action, float from, float to, float time, Easing.Ease easing, System.Action callback = null)
     {
-        Task task = AddTask(time, easing);
+        Task task = a.AddTask(time, easing);
         task.type = TaskType.actionFloat;
         task.data["action"] = action;
         task.data["from"] = from;
         task.data["to"] = to;
         task.callback = callback;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
-    public Task DoAfter(float time, System.Action action) {
-        Task task = AddTask(time, Easing.Ease.Linear);
+    public static Task DoAfter(float time, System.Action action) {
+        Task task = a.AddTask(time, Easing.Ease.Linear);
         task.type = TaskType.timerSimple;
         task.callback = action;
-        tasks.Add(task);
+        a.tasks.Add(task);
         return task;
     }
 
@@ -202,9 +202,9 @@ public class Tween : MonoBehaviour {
         DeleteTask(task);
     }
 
-    public void DeleteTask(Task task)
+    public static void DeleteTask(Task task)
     {
-        tasksToDelete.Add(task);
+        a.tasksToDelete.Add(task);
     }
 
     void UpdateTask(Task task)

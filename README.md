@@ -1,6 +1,6 @@
 # Unity_Tween
 
-Version 0.21
+Version 0.22
 
 Simple tweening system with easing.
 
@@ -35,7 +35,7 @@ using FMLHT;
 Moving:
 
 ```csharp
-Tween.a.MoveTo(objTransform, new Vector3(0, 100, 0), 3f, Easing.Ease.Linear, () => {
+Tween.MoveTo(objTransform, new Vector3(0, 100, 0), 3f, Easing.Ease.Linear, () => {
     //I've been moved!
 });
 ```
@@ -43,7 +43,7 @@ Tween.a.MoveTo(objTransform, new Vector3(0, 100, 0), 3f, Easing.Ease.Linear, () 
 Rotating locally:
 
 ```csharp
-Tween.a.RotateToLocal(objTransform, Quaternion.Euler(rotationTo), 3f, Easing.Ease.EaseOutElastic, () => {
+Tween.RotateToLocal(objTransform, Quaternion.Euler(rotationTo), 3f, Easing.Ease.EaseOutElastic, () => {
     //I've been rotated!
 });
 ```
@@ -56,7 +56,7 @@ Action<float> order66 = f => {
     empireStregth = 1 - f;
     saberLight = Color.Lerp(Color.blue, Color.red, f);
 };
-Tween.a.ActionFloat(order66, 0f, 1f, 10f, Easing.Ease.EaseInExpo);
+Tween.ActionFloat(order66, 0f, 1f, 10f, Easing.Ease.EaseInExpo);
 ```
 
 Action is returned as `Task`, so that you can refer to it later:
@@ -65,7 +65,7 @@ Action is returned as `Task`, so that you can refer to it later:
 Tween.Task tomJob;
 void BeginJob() {
     //Catch Jerry!
-    tomCheck = Tween.a.DoAfter(10f, () => {
+    tomCheck = Tween.DoAfter(10f, () => {
         if (!Jerry.isCaught) {
             Tom.BeginJob();
         }
@@ -76,7 +76,7 @@ void BeginJob() {
 
 void Update() {
     if (Jerry.isCaught) {
-        Tween.a.DeleteTask(tomCheck);
+        Tween.DeleteTask(tomCheck);
     }
 }
 ```
