@@ -26,6 +26,13 @@ public class TweenEditor : Editor
             Debug.Log("There is already one Tween in this scene!");
         }
     }
+
+    [MenuItem("FMLHT/Utilities/Tween/Add example tween mesh")]
+    public static void AddExample() {
+        UnityEngine.Object prefab = Resources.Load("TweenObject");
+        var newObj = PrefabUtility.InstantiatePrefab(prefab);
+        GameObject obj = (GameObject)newObj;
+    }
 }
 
 }

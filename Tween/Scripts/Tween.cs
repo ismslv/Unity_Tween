@@ -1,6 +1,6 @@
 ﻿/* TWEEN SYSTEM
  * V0.22
- * FMLHT, 10.2018
+ * FMLHT, 04.2019
  */
 
 using System.Collections;
@@ -195,6 +195,32 @@ public class Tween : MonoBehaviour {
         return task;
     }
 
+    public static Task TweenMesh(MeshTween mesh, MeshTween.BeTween between, float from, float to, float time, Easing.Ease easing, System.Action callback = null) {
+        Task task = a.AddTask(time, Easing.Ease.Linear);
+        task.type = TaskType.tweenMesh;
+        task.data["between"] = between;
+        task.data["mesh"] = mesh;
+        task.data["from"] = from;
+        task.data["to"] = to;
+        task.callback = callback;
+        a.tasks.Add(task);
+        return task;
+    }
+
+    public static Task TweenMesh(MeshTween mesh, int stateFrom, int stateTo, float from, float to, float time, Easing.Ease easing, System.Action callback = null) {
+        Task task = a.AddTask(time, Easing.Ease.Linear);
+        task.type = TaskType.tweenMesh;
+        task.data["between"] = null;
+        task.data["mesh"] = mesh;
+        task.data["statefrom"] = stateFrom;
+        task.data["stateto"] = stateTo;
+        task.data["from"] = from;
+        task.data["to"] = to;
+        task.callback = callback;
+        a.tasks.Add(task);
+        return task;
+    }
+
     public void CompleteTask(Task task)
     {
         if (task.callback != null)
@@ -293,6 +319,27 @@ public class Tween : MonoBehaviour {
                         )
                     );
                 break;
+            case TaskType.tweenMesh:
+                var between = ((MeshTween.BeTween)task.data["between"]);
+                if (between != null) {
+                    between.state = Mathf.Lerp(
+                        (float)task.data["from"],
+                        (float)task.data["to"],
+                        Easing.EaseResult(task.easing, 0f, 1f, task.t)
+                    );
+                    ((MeshTween)task.data["mesh"]).Between(between);
+                } else {
+                    ((MeshTween)task.data["mesh"]).Between(
+                        (int)task.data["statefrom"],
+                        (int)task.data["stateto"],
+                        Mathf.Lerp(
+                            (float)task.data["from"],
+                            (float)task.data["to"],
+                            Easing.EaseResult(task.easing, 0f, 1f, task.t)
+                        )
+                    );
+                }
+                break;
             default:
                 break;
         }
@@ -342,7 +389,8 @@ public class Tween : MonoBehaviour {
         colorSprite,
         actionFloat,
         timerSimple,
-        moveUI
+        moveUI,
+        tweenMesh
     };
 
     [System.Serializable]

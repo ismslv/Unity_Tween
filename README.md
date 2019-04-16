@@ -1,5 +1,5 @@
 # Unity_Tween
-
+![Screenshot](Screenshot.gif)
 Version 0.22
 
 Simple tweening system with easing.
@@ -10,14 +10,15 @@ public enum TaskType {
     moveLocal,
     moveArc,
     moveArcLocal,
-    moveUI,
     rotate,
     rotateLocal,
     scale,
     colorMaterial,
     colorSprite,
     actionFloat,
-    timerSimple
+    timerSimple,
+    moveUI,
+    tweenMesh
 };
 
 Tween.a.MoveTo(what, where, time, ease, callback);
@@ -79,4 +80,37 @@ void Update() {
         Tween.DeleteTask(tomCheck);
     }
 }
+```
+
+## Tween mesh
+
+1. Add component ```MeshTween``` to an empty mesh.   
+2. Assign meshes with equal vertex count to new states
+3. Ajust tween value in inspector or in script:
+
+```csharp
+//Directly with method
+tweenMesh.SetState(0, 1f);
+tweenMesh.SetState(1, 0f);
+tweenMesh.UpdateCurrentState();
+
+//Tween with method
+//Updates automatically
+tweenMesh.Between(0, 1, 0f);
+
+//Directly to objects
+tweenMesh.states[0].Weight = 1f;
+tweenMesh.states[1].Weight = 0f;
+tweenMesh.UpdateCurrentState();
+
+//Animated
+Tween.TweenMesh(
+    tweenMesh, //MeshTween
+    0,         //state from
+    1,         //state to
+    0f,        //value from
+    1f,        //value to
+    0.5f,      //time
+    Easing.Ease.Linear
+    );
 ```
